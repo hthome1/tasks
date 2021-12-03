@@ -40,9 +40,6 @@ def createTask(request):
 
 
 @api_view(["DELETE"])
-def deleteTasks(request):
-    try:
-        task_det = Task.objects.all()
-        Task.delete()
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+def delete_all(request):
+    Task.objects.all().delete()
+    return HttpResponse("Tasks deletadas")
