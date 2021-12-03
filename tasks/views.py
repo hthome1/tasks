@@ -17,6 +17,7 @@ from rest_framework.response import Response
 from tasks.serializer import TaskSerializer
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from rest_framework import status
 
 
 @api_view(["GET"])
@@ -40,4 +41,8 @@ def createTask(request):
 
 @api_view(["DELETE"])
 def deleteTasks(request):
-    Task.objects.all().delete()
+    try:
+        task_det = Task.objects.all()
+        Task.delete()
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
